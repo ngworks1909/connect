@@ -19,7 +19,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { contactId
             return NextResponse.json({success: false, message: "Not authorized to delete contact"}, {status: 401})
         }
         await prisma.contact.delete({where: {contactId}});
-        return NextResponse.json({success: false, message: "Contact deleted"}, {status: 200})
+        return NextResponse.json({success: true, message: "Contact deleted"}, {status: 200})
     } catch (error) {
         return NextResponse.json({success: false, message: "Internal server error"}, {status: 500})
     }

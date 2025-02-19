@@ -12,13 +12,22 @@ export default function ContactTop({contactSize, handleCreate}: {contactSize: nu
   const [open, setOpen] = useState(false);
   const [username, setUserName] = useState("")
   const [mobile, setMobile] = useState("");
+  const [adding, setAdding] = useState(false);
 
   const handleMobile = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const value = e.target.value;
-    const result = mobileValidator.safeParse(value);
-    if (result.success) {
-      setMobile(value);
+    const value = e.target.value.replace(/\D/g, "") // Remove non-digit characters
+
+    if (value.length === 0) {
+      setMobile("")
+      return
+    }
+
+    const firstDigit = Number.parseInt(value[0])
+    if (firstDigit >= 6 && firstDigit <= 9) {
+      setMobile(value.slice(0, 10)) // Limit to 10 digits
+    } else if (value.length === 1) {
+      // If the first digit is invalid, don't update the state
+      return
     }
   }
   return (
@@ -60,15 +69,15 @@ export default function ContactTop({contactSize, handleCreate}: {contactSize: nu
                   <Input
                     id="mobile"
                     value={mobile}
-                    onChange={(e) => setMobile(e.target.value)}
+                    onChange={handleMobile}
                     className="col-span-3"
                     placeholder='Enter mobile number'
                   />
                 </div> 
               </div>
               <DialogFooter>
-                <Button disabled = {username.length < 4 || mobile.length < 10} onClick={async(e) => {e.preventDefault(); handleCreate(username, mobile)}} >
-                  Add Contact
+                <Button disabled = {username.length < 4 || mobile.length < 10 || adding} onClick={async(e) => {e.preventDefault(); setAdding(true); await handleCreate(username, mobile); setAdding(false); setOpen(false); setUserName(""); setMobile("")}} >
+                  {adding ? "Adding..." : "Add Contact"}
                 </Button>
               </DialogFooter>
             </DialogContent>

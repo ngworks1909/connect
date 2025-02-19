@@ -10,15 +10,7 @@ export default function DropDownItems() {
   const router = useRouter()
   return (
     <>
-    <DropdownMenuItem onClick={() => router.push('/profile')}>
-        <User className="mr-2 h-4 w-4" />
-        <span>Profile</span>
-    </DropdownMenuItem>
-    <DropdownMenuItem onClick={() => router.push('/help')}>
-      <HelpCircle className="mr-2 h-4 w-4" />
-      <span>Help & Support</span>
-    </DropdownMenuItem>
-    <DropdownMenuSeparator />
+    {/* <DropdownMenuSeparator /> */}
     <DropdownMenuItem onClick={async() => {await signOut()}}>
       <LogOut className="mr-2 h-4 w-4" />
       <span>Log out</span>

@@ -17,6 +17,17 @@ export async function POST(req: NextRequest){
             return NextResponse.json({success: false, message: "Invalid inputs"}, {status: 400})
         }
         const {username, mobile} = isValidContact.data;
+        const existingUser = await prisma.contact.findUnique({
+            where: {
+              userId_mobile: {
+                userId: userId,
+                mobile: mobile
+              }
+            }
+        });
+        if(existingUser){
+            return NextResponse.json({success: false, message: "Contact already exists"}, {status: 400})
+        }
         const contact = await prisma.contact.create({data: {contactName: username, mobile, userId}});
         return NextResponse.json({success: true, contact}, {status: 200})
     } catch (error) {

@@ -64,7 +64,7 @@ export default function Auth({type} : Readonly<{type: "Login" | "Signup"}>) {
         <div className="max-w-md text-center">
           <h2 className="text-3xl font-bold mb-4">Welcome to Our Service</h2>
           <blockquote className="text-xl italic">
-            {"The customer service I recieved was exceptional.The support team went above and beyond to address my concerns."}
+            {"Connect simplifies the organization, storage, and access to your contacts, making communication effortless and efficient."}
           </blockquote>
           <p className="mt-4 font-semibold">- Kandoor Nithin Kumar Reddy</p>
         </div>
